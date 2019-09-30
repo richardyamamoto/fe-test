@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ShoppingBasket } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import api from '../../services/api';
 import { formatCurrency } from '../../util/index';
-import { Container, ProductList } from './styles';
+import { ProductList } from './styles';
 
 class Home extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    amount: PropTypes.objectOf(PropTypes.number).isRequired,
+  };
+
   state = {
     products: [],
   };
@@ -15,10 +22,20 @@ class Home extends Component {
     const data = response.data.map(product => ({
       ...product,
       formattedPrice: formatCurrency(product.price),
+      partedPrice: formatCurrency(product.price / 12),
+      discountedPrice: formatCurrency(product.price * 0.9),
     }));
     this.setState({ products: data });
     console.tron.log(data);
   }
+
+  handleAddProduct = product => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: '@cart/ADD',
+      product,
+    });
+  };
 
   render() {
     const { products } = this.state;
@@ -28,18 +45,24 @@ class Home extends Component {
         {products.map(product => (
           <li key={product.id}>
             <img src={product.image} alt={product.title} />
-            <strong>{product.title}</strong>
-            <span>{product.priceFormatted}</span>
-            <button
+            <span>{product.title}</span>
+            <strong>{product.formattedPrice}</strong>
+            <span className="span-lighter">
+              Em até 12x de {product.partedPrice}
+            </span>
+            <span className="span-lighter">
+              {product.discountedPrice} à vista (10% de desconto)
+            </span>
+            <Button
               type="button"
-              onClick={() => this.handleAddProduct(product.id)}
+              onClick={() => this.handleAddProduct(product)}
             >
               <div>
                 <ShoppingBasket size={16} color="#fff" />
                 {amount[product.id]}
               </div>
-              <span>ADICIONAR AO CARRINHO</span>
-            </button>
+              <span>ADICIONAR</span>
+            </Button>
           </li>
         ))}
       </ProductList>
