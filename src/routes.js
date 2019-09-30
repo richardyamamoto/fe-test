@@ -1,9 +1,9 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Purchase from "./pages/Purchase";
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import Purchase from './pages/Purchase';
 
 export default function Routes() {
   return (

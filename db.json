@@ -1,0 +1,52 @@
+{
+"products": [
+    {
+      "id": 1,
+      "title": "AirPods Apple Fones de ouvido",
+      "price": 1499.00,
+      "image": "https://i.ibb.co/dKWRRgm/produto-01.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Capa de silicone para iPhone 8/7 cor Areia - rosa",
+      "price": 299.00,
+      "image": "https://i.ibb.co/FxBQk6H/produto-02.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Apple Pencil",
+      "price": 729.00,
+      "image": "https://i.ibb.co/Yyz53bR/produto-03.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Magic Mouse 2 - Prateado",
+      "price": 549.00,
+      "image": "https://i.ibb.co/g45jKXR/produto-04.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Apple Watch - Caixa prateada de alumínio com pulseira esportiva branca",
+      "price": 549.00,
+      "image": "https://i.ibb.co/PtxctBN/produto-05.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Cabo lightning para USB (1m)",
+      "price": 149.00,
+      "image": "https://i.ibb.co/Pt9PvfS/produto-06.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Smart Keyboard para iPad Pro 12,9 polegadas - inglês (EUA)",
+      "price": 1099.00,
+      "image": "https://i.ibb.co/qjqKR4c/produto-07.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Carregador USB de 5W Apple",
+      "price": 1099.00,
+      "image": "https://i.ibb.co/DGPmqMJ/produto-08.jpg"
+    }
+  ]
+}
