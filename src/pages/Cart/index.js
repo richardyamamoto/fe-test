@@ -73,53 +73,61 @@ function Cart({ cart, total, dispatch, history }) {
     history.push('/finish');
   };
   return (
-    <Container>
-      <ProductTable>
-        <thead>
-          <tr>
-            <th />
-            <th>PRODUTO</th>
-            <th>QTD</th>
-            <th>SUBTOTAL</th>
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map(product => (
+    <>
+      <Container>
+        <ProductTable>
+          <thead>
             <tr>
-              <td>
-                <img src={product.image} alt={product.title} />
-              </td>
-              <td>
-                <strong>{product.title}</strong>
-                <span>{product.priceFormatted}</span>
-              </td>
-              <td>
-                <div>
-                  <IconButton type="button" onClick={() => decrement(product)}>
-                    <Remove fontSize="small" />
-                  </IconButton>
-                  <input type="number" readOnly value={product.amount} />
-                  <IconButton type="button" onClick={() => increment(product)}>
-                    <Add fontSize="small" />
-                  </IconButton>
-                </div>
-              </td>
-              <td>
-                <strong>{product.subtotal}</strong>
-              </td>
-              <td>
-                <IconButton
-                  type="button"
-                  onClick={() => removeFromCart(product.id)}
-                >
-                  <Delete fontSize="small" />
-                </IconButton>
-              </td>
+              <th label="img" />
+              <th>PRODUTO</th>
+              <th>QTD</th>
+              <th>SUBTOTAL</th>
+              <th label="delete-btn" />
             </tr>
-          ))}
-        </tbody>
-      </ProductTable>
+          </thead>
+          <tbody>
+            {cart.map(product => (
+              <tr>
+                <td>
+                  <img src={product.image} alt={product.title} />
+                </td>
+                <td>
+                  <strong>{product.title}</strong>
+                  <span>{product.priceFormatted}</span>
+                </td>
+                <td>
+                  <div>
+                    <IconButton
+                      type="button"
+                      onClick={() => decrement(product)}
+                    >
+                      <Remove fontSize="small" />
+                    </IconButton>
+                    <input type="number" readOnly value={product.amount} />
+                    <IconButton
+                      type="button"
+                      onClick={() => increment(product)}
+                    >
+                      <Add fontSize="small" />
+                    </IconButton>
+                  </div>
+                </td>
+                <td>
+                  <strong>{product.subtotal}</strong>
+                </td>
+                <td>
+                  <IconButton
+                    type="button"
+                    onClick={() => removeFromCart(product.id)}
+                  >
+                    <Delete fontSize="small" />
+                  </IconButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </ProductTable>
+      </Container>
       <footer>
         <ClientForm onSubmit={handleSubmit}>
           <div>
@@ -148,7 +156,6 @@ function Cart({ cart, total, dispatch, history }) {
               SelectProps={{
                 native: true,
               }}
-              helperText="Selecione uma opção"
               onChange={handleChange('genre')}
             >
               {genres.map(genre => (
@@ -157,15 +164,15 @@ function Cart({ cart, total, dispatch, history }) {
                 </option>
               ))}
             </TextField>
-            <Button type="submit">Finalizar pedido</Button>
           </div>
+          <Button type="submit">Finalizar pedido</Button>
         </ClientForm>
         <Total>
           <span>Total</span>
           <strong>{total}</strong>
         </Total>
       </footer>
-    </Container>
+    </>
   );
 }
 

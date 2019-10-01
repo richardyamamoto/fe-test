@@ -3,7 +3,7 @@ import { darken } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 225px);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
   list-style: none;
   width: 100%;
@@ -62,5 +62,8 @@ export const ProductList = styled.ul`
       margin: 0;
       align-items: baseline;
     }
+  }
+  @media (max-width: 1140) {
+    grid-template-columns: minmax(auto-fill, 225px);
   }
 `;

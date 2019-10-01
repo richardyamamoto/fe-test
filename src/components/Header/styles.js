@@ -8,6 +8,10 @@ export const Container = styled.header`
   margin: 50px 0;
   background: #fff;
   padding: 30px;
+  img {
+    max-width: 130px;
+    min-width: 100px;
+  }
 `;
 
 export const Cart = styled(Link)`

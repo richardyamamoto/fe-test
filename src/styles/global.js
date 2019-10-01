@@ -16,9 +16,10 @@ export default createGlobalStyle`
     font: 14px Roboto, sans-serif;
   }
   #root {
-    max-width: 3040px;
+    max-width: 950px;
     margin: 0 auto;
     padding: 0 20px 50px;
+    width: 100%;
   }
   button {
     cursor: pointer;

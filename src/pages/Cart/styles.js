@@ -11,16 +11,17 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     button {
-      background: #7159c1;
+      background: #ff8c00;
       color: #fff;
       border: 0;
       border-radius: 4px;
       padding: 12px 20px;
       font-weight: bold;
+      align-content: right;
       text-transform: uppercase;
       transition: background 0.2s;
       &:hover {
-        background: ${darken(0.05, '#7159c1')};
+        background: ${darken(0.05, '#FF8C00')};
       }
     }
   }
@@ -82,4 +83,16 @@ export const Total = styled.div`
   }
 `;
 
-export const ClientForm = styled.form``;
+export const ClientForm = styled.form`
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    div {
+      margin: 10px;
+      label {
+        margin-left: 10px;
+      }
+    }
+  }
+`;
