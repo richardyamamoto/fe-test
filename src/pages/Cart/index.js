@@ -2,10 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Add, Remove, Delete } from '@material-ui/icons';
 import { IconButton, TextField, Button } from '@material-ui/core';
+
 import PropTypes from 'prop-types';
 import { formatCurrency } from '../../util/index';
 
-import { Container, ProductTable, Total, ClientForm, Title } from './styles';
+import {
+  Container,
+  ProductTable,
+  Total,
+  ClientForm,
+  Title,
+  BackLink,
+} from './styles';
 
 const genres = [
   {
@@ -26,15 +34,17 @@ const genres = [
   },
 ];
 
-function Cart({ cart, total, dispatch, history }) {
+function Cart({ cart, cartSize, total, dispatch, history }) {
   Cart.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    cart: PropTypes.objectOf(PropTypes.string).isRequired,
+    cart: PropTypes.objectOf(PropTypes.array).isRequired,
     total: PropTypes.string.isRequired,
     history: PropTypes.func.isRequired,
+    cartSize: PropTypes.number.isRequired,
   };
   const [values, setValues] = React.useState({
     genre: '',
+    error: false,
   });
 
   const increment = product => {
@@ -65,68 +75,86 @@ function Cart({ cart, total, dispatch, history }) {
   };
 
   const handleSubmit = event => {
-    event.preventDefault();
-    dispatch({
-      type: '@user/ADD_DATA',
-      ...values,
-    });
-    history.push('/finish');
+    try {
+      if (cartSize <= 0) throw new Error('Cart must have items');
+      event.preventDefault();
+      dispatch({
+        type: '@user/ADD_DATA',
+        ...values,
+      });
+      setValues({ error: false });
+      history.push('/finish');
+    } catch (err) {
+      event.preventDefault();
+      setValues({ error: true });
+    }
   };
   return (
     <>
-      <Title>Carrinho</Title>
+      <Title>
+        Carrinho
+        <BackLink to="/">Voltar para Produtos</BackLink>
+      </Title>
       <Container>
-        <ProductTable>
-          <thead>
-            <tr>
-              <th label="img" />
-              <th>PRODUTO</th>
-              <th>QTD</th>
-              <th>SUBTOTAL</th>
-              <th label="delete-btn" />
-            </tr>
-          </thead>
-          <tbody>
-            {cart.map(product => (
-              <tr>
-                <td>
-                  <img src={product.image} alt={product.title} />
-                </td>
-                <td>
-                  <strong>{product.title}</strong>
-                  <span>{product.priceFormatted}</span>
-                </td>
-                <td>
-                  <div>
-                    <IconButton
-                      type="button"
-                      onClick={() => decrement(product)}
-                    >
-                      <Remove fontSize="small" />
-                    </IconButton>
-                    <input type="number" readOnly value={product.amount} />
-                    <IconButton
-                      type="button"
-                      onClick={() => increment(product)}
-                    >
-                      <Add fontSize="small" />
-                    </IconButton>
-                  </div>
-                </td>
-                <td>
-                  <strong>{product.subtotal}</strong>
-                </td>
-                <td>
-                  <IconButton
-                    type="button"
-                    onClick={() => removeFromCart(product.id)}
-                  >
-                    <Delete fontSize="small" />
-                  </IconButton>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+        <ProductTable error={values.error}>
+          {cartSize <= 0 ? (
+            <div>
+              <small>Carrinho vazio</small>
+            </div>
+          ) : (
+            <>
+              <thead>
+                <tr>
+                  <th label="img" />
+                  <th>PRODUTO</th>
+                  <th>QTD</th>
+                  <th>SUBTOTAL</th>
+                  <th label="delete-btn" />
+                </tr>
+              </thead>
+              <tbody>
+                {cart.map(product => (
+                  <tr key={product.title}>
+                    <td>
+                      <img src={product.image} alt={product.title} />
+                    </td>
+                    <td>
+                      <strong>{product.title}</strong>
+                      <span>{product.priceFormatted}</span>
+                    </td>
+                    <td>
+                      <div>
+                        <IconButton
+                          type="button"
+                          onClick={() => decrement(product)}
+                        >
+                          <Remove fontSize="small" />
+                        </IconButton>
+                        <input type="number" readOnly value={product.amount} />
+                        <IconButton
+                          type="button"
+                          onClick={() => increment(product)}
+                        >
+                          <Add fontSize="small" />
+                        </IconButton>
+                      </div>
+                    </td>
+                    <td>
+                      <strong>{product.subtotal}</strong>
+                    </td>
+                    <td>
+                      <IconButton
+                        type="button"
+                        onClick={() => removeFromCart(product.id)}
+                      >
+                        <Delete fontSize="small" />
+                      </IconButton>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          )}
         </ProductTable>
         <Total>
           <span>Total</span>
@@ -143,6 +171,7 @@ function Cart({ cart, total, dispatch, history }) {
               placeholder="Nome"
               name="name"
               label="Nome"
+              type="text"
               onChange={handleChange('name')}
             />
             <TextField
@@ -152,9 +181,12 @@ function Cart({ cart, total, dispatch, history }) {
               placeholder="E-mail"
               name="email"
               label="E-mail"
+              type="email"
               onChange={handleChange('email')}
             />
             <TextField
+              InputLabelProps={{ required: false }}
+              required
               select
               label="Sexo"
               value={values.genre}
@@ -184,6 +216,7 @@ const mapStateToProps = state => ({
     ...product,
     subtotal: formatCurrency(product.price * product.amount),
   })),
+  cartSize: state.cart.length,
   total: formatCurrency(
     state.cart.reduce((total, product) => {
       return total + product.price * product.amount;
