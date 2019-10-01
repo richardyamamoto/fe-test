@@ -34,6 +34,7 @@ export default function cart(state = [], action) {
         }
       });
     }
+
     default:
       return state;
   }

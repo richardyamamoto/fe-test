@@ -1,37 +1,73 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Add, Remove, Delete } from '@material-ui/icons';
+import { IconButton, TextField, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { formatCurrency } from '../../util/index';
 
-import { Container, ProductTable, Total } from './styles';
+import { Container, ProductTable, Total, ClientForm } from './styles';
+
+const genres = [
+  {
+    value: '',
+    label: '',
+  },
+  {
+    value: 'feminino',
+    label: 'Feminino',
+  },
+  {
+    value: 'masculino',
+    label: 'Masculino',
+  },
+  {
+    value: 'nao-informado',
+    label: 'Não informar',
+  },
+];
 
 function Cart({ cart, total, dispatch }) {
   Cart.propTypes = {
     dispatch: PropTypes.func.isRequired,
   };
+  const [values, setValues] = React.useState({
+    genre: '',
+  });
 
-  function increment(product) {
+  const increment = product => {
     dispatch({
       type: '@cart/UPDATE_AMOUNT',
-      action: product.amount + 1,
+      ...product,
+      amount: product.amount + 1,
     });
-  }
+  };
 
-  function decrement(product) {
+  const decrement = product => {
     dispatch({
       type: '@cart/UPDATE_AMOUNT',
-      action: product.amount - 1,
+      ...product,
+      amount: product.amount - 1,
     });
-  }
+  };
 
-  function removeFromCart(id) {
+  const removeFromCart = id => {
     dispatch({
       type: '@cart/REMOVE',
       id,
     });
-  }
+  };
 
+  const handleChange = eventName => event => {
+    setValues({ ...values, [eventName]: event.target.value });
+  };
+
+  const handleSubmit = event => {
+    dispatch({
+      type: '@user/ADD_DATA',
+      ...values,
+    });
+    event.preventDefault();
+  };
   return (
     <Container>
       <ProductTable>
@@ -56,41 +92,70 @@ function Cart({ cart, total, dispatch }) {
               </td>
               <td>
                 <div>
-                  <button type="button">
-                    <Remove
-                      size={20}
-                      color="#7159c1"
-                      onClick={() => decrement(product)}
-                    />
-                  </button>
+                  <IconButton type="button" onClick={() => decrement(product)}>
+                    <Remove fontSize="small" />
+                  </IconButton>
                   <input type="number" readOnly value={product.amount} />
-                  <button type="button">
-                    <Add
-                      size={20}
-                      color="#7159c1"
-                      onClick={() => increment(product)}
-                    />
-                  </button>
+                  <IconButton type="button" onClick={() => increment(product)}>
+                    <Add fontSize="small" />
+                  </IconButton>
                 </div>
               </td>
               <td>
                 <strong>{product.subtotal}</strong>
               </td>
               <td>
-                <button type="button">
-                  <Delete
-                    size={20}
-                    color="#7159c1"
-                    onClick={() => removeFromCart(product.id)}
-                  />
-                </button>
+                <IconButton
+                  type="button"
+                  onClick={() => removeFromCart(product.id)}
+                >
+                  <Delete fontSize="small" />
+                </IconButton>
               </td>
             </tr>
           ))}
         </tbody>
       </ProductTable>
       <footer>
-        <button type="button">Finalizar pedido</button>
+        <ClientForm onSubmit={handleSubmit}>
+          <div>
+            <TextField
+              InputLabelProps={{ required: false }}
+              margin="dense"
+              required
+              placeholder="Nome"
+              name="name"
+              label="Nome"
+              onChange={handleChange('name')}
+            />
+            <TextField
+              InputLabelProps={{ required: false }}
+              margin="dense"
+              required
+              placeholder="E-mail"
+              name="email"
+              label="E-mail"
+              onChange={handleChange('email')}
+            />
+            <TextField
+              select
+              label="Sexo"
+              value={values.genre}
+              SelectProps={{
+                native: true,
+              }}
+              helperText="Selecione uma opção"
+              onChange={handleChange('genre')}
+            >
+              {genres.map(genre => (
+                <option key={genre.value} value={genre.value}>
+                  {genre.label}
+                </option>
+              ))}
+            </TextField>
+          </div>
+          <Button type="submit">Finalizar pedido</Button>
+        </ClientForm>
         <Total>
           <span>Total</span>
           <strong>{total}</strong>

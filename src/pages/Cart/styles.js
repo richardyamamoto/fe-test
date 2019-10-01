@@ -59,10 +59,12 @@ export const ProductTable = styled.table`
     color: #666;
     padding: 6px;
     width: 50px;
+    text-align:end;
   }
   button {
     background: none;
     border: 0;
+    border-radius: 50%;
     padding: 6px;
   }
 `;
@@ -79,3 +81,5 @@ export const Total = styled.div`
     margin-left: 5px;
   }
 `;
+
+export const ClientForm = styled.form``;
