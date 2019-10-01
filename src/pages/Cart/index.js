@@ -5,7 +5,7 @@ import { IconButton, TextField, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { formatCurrency } from '../../util/index';
 
-import { Container, ProductTable, Total, ClientForm } from './styles';
+import { Container, ProductTable, Total, ClientForm, Title } from './styles';
 
 const genres = [
   {
@@ -74,6 +74,7 @@ function Cart({ cart, total, dispatch, history }) {
   };
   return (
     <>
+      <Title>Carrinho</Title>
       <Container>
         <ProductTable>
           <thead>

@@ -20,6 +20,9 @@ export default createGlobalStyle`
     margin: 0 auto;
     padding: 0 20px 50px;
     width: 100%;
+    @media(max-width: 650px){
+      padding: 0 15px 15px;
+    }
   }
   button {
     cursor: pointer;

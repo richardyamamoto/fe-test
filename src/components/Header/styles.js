@@ -8,6 +8,8 @@ export const Container = styled.header`
   margin: 50px 0;
   background: #fff;
   padding: 30px;
+  min-width: 290px;
+  border-radius: 4px;
   img {
     max-width: 130px;
     min-width: 100px;
@@ -15,7 +17,8 @@ export const Container = styled.header`
 
   @media (max-width: 320px) {
     padding: 20px;
-    margin: 30px 0;
+    margin: 10px 0;
+    min-width: 290px;
   }
 `;
 

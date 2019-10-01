@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+export const Title = styled.h1`
+  font-size: 26px;
+  font-weight: bold;
+  color: #999;
+  margin: 15px 0;
+`;
+
 export const Container = styled.div`
   padding: 30px;
   background: #fff;
   border-radius: 4px;
+  min-width: 290px;
   footer {
     margin-top: 30px;
     display: flex;
@@ -25,9 +33,14 @@ export const Container = styled.div`
       }
     }
   }
+  @media (max-width: 650px) {
+    padding: 0;
+    min-width: 290px;
+  }
 `;
 export const ProductTable = styled.table`
   width: 100%;
+  min-width: 290px;
   thead th {
     color: #999;
     text-align: center;
@@ -61,13 +74,44 @@ export const ProductTable = styled.table`
     color: #666;
     padding: 6px;
     width: 50px;
-    text-align:end;
+    text-align:center;
   }
   button {
     background: none;
     border: 0;
     border-radius: 50%;
     padding: 6px;
+  }
+  @media(max-width:650px){
+    min-width: 290px;
+    thead th {
+      padding: 0;
+      min-width: 50px;
+    }
+
+    tbody td{
+      padding: 0;
+      min-width: 50px;
+    }
+
+    img{
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    strong{
+      font-size: 12px;
+    }
+
+    input{
+      padding: 2px;
+      max-width: 35px;
+      font-size: 12px;
+    }
+
+    div {
+      flex-direction: column-reverse;
+    }
   }
 `;
 
@@ -84,14 +128,19 @@ export const Total = styled.div`
     font-size: 28px;
     margin-left: 5px;
   }
+  @media (max-width: 650px) {
+    margin-right: 10px;
+  }
 `;
 
 export const ClientForm = styled.form`
   div {
     display: flex;
+    flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
 
     div {
       margin: 10px;
@@ -105,6 +154,7 @@ export const ClientForm = styled.form`
   #btn-submit {
     display: flex;
     justify-content: flex-end;
+    min-width: 320px;
 
     button {
       background: #ff8c00;
@@ -119,6 +169,16 @@ export const ClientForm = styled.form`
       transition: background 0.2s;
       &:hover {
         background: ${darken(0.05, '#FF8C00')};
+      }
+    }
+  }
+  @media (max-width: 650px) {
+    div {
+      flex-direction: column;
+      flex: 1;
+      margin: 0;
+      + div {
+        margin-top: 0;
       }
     }
   }

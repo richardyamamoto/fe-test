@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 import { formatCurrency } from '../../util/index';
-import { ProductList } from './styles';
+import { ProductList, Title } from './styles';
 
 class Home extends Component {
   static propTypes = {
@@ -41,29 +41,32 @@ class Home extends Component {
     const { products } = this.state;
     const { amount } = this.props;
     return (
-      <ProductList>
-        {products.map(product => (
-          <li key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <span>{product.title}</span>
-            <strong>{product.formattedPrice}</strong>
-            <span className="span-lighter">
-              Em até 12x de {product.partedPrice}
-            </span>
-            <small>{product.discountedPrice} à vista (10% de desconto)</small>
-            <Button
-              type="button"
-              onClick={() => this.handleAddProduct(product)}
-            >
-              <div>
-                <ShoppingBasket size={16} color="#fff" />
-                {amount[product.id]}
-              </div>
-              <span>ADICIONAR</span>
-            </Button>
-          </li>
-        ))}
-      </ProductList>
+      <>
+        <Title>Produtos</Title>
+        <ProductList>
+          {products.map(product => (
+            <li key={product.id}>
+              <img src={product.image} alt={product.title} />
+              <span>{product.title}</span>
+              <strong>{product.formattedPrice}</strong>
+              <span className="span-lighter">
+                Em até 12x de {product.partedPrice}
+              </span>
+              <small>{product.discountedPrice} à vista (10% de desconto)</small>
+              <Button
+                type="button"
+                onClick={() => this.handleAddProduct(product)}
+              >
+                <div>
+                  <ShoppingBasket size={16} color="#fff" />
+                  {amount[product.id]}
+                </div>
+                <span>ADICIONAR</span>
+              </Button>
+            </li>
+          ))}
+        </ProductList>
+      </>
     );
   }
 }

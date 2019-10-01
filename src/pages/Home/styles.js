@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+export const Title = styled.h1`
+  font-size: 26px;
+  font-weight: bold;
+  color: #999;
+  margin: 15px 0;
+`;
+
 export const ProductList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
   list-style: none;
   width: 100%;
+  min-width: 290px;
   li {
     display: flex;
     flex-direction: column;
