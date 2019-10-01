@@ -26,9 +26,12 @@ const genres = [
   },
 ];
 
-function Cart({ cart, total, dispatch }) {
+function Cart({ cart, total, dispatch, history }) {
   Cart.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    cart: PropTypes.objectOf(PropTypes.string).isRequired,
+    total: PropTypes.string.isRequired,
+    history: PropTypes.func.isRequired,
   };
   const [values, setValues] = React.useState({
     genre: '',
@@ -62,11 +65,12 @@ function Cart({ cart, total, dispatch }) {
   };
 
   const handleSubmit = event => {
+    event.preventDefault();
     dispatch({
       type: '@user/ADD_DATA',
       ...values,
     });
-    event.preventDefault();
+    history.push('/finish');
   };
   return (
     <Container>
@@ -153,8 +157,8 @@ function Cart({ cart, total, dispatch }) {
                 </option>
               ))}
             </TextField>
+            <Button type="submit">Finalizar pedido</Button>
           </div>
-          <Button type="submit">Finalizar pedido</Button>
         </ClientForm>
         <Total>
           <span>Total</span>
