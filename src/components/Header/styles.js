@@ -12,6 +12,11 @@ export const Container = styled.header`
     max-width: 130px;
     min-width: 100px;
   }
+
+  @media (max-width: 320px) {
+    padding: 20px;
+    margin: 30px 0;
+  }
 `;
 
 export const Cart = styled(Link)`

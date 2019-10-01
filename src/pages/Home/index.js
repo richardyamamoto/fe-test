@@ -50,9 +50,7 @@ class Home extends Component {
             <span className="span-lighter">
               Em até 12x de {product.partedPrice}
             </span>
-            <span className="span-lighter">
-              {product.discountedPrice} à vista (10% de desconto)
-            </span>
+            <small>{product.discountedPrice} à vista (10% de desconto)</small>
             <Button
               type="button"
               onClick={() => this.handleAddProduct(product)}

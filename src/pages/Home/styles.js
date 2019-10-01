@@ -13,9 +13,14 @@ export const ProductList = styled.ul`
     background: #fff;
     border-radius: 4px;
     padding: 20px;
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 0 0 4px 0px #333;
+    }
     img {
       align-self: center;
       max-width: 150px;
+      margin: auto;
     }
     > strong {
       font-size: 16px;
@@ -23,7 +28,7 @@ export const ProductList = styled.ul`
       color: #666;
     }
     > span {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       margin: auto 0px;
     }
@@ -57,9 +62,16 @@ export const ProductList = styled.ul`
     }
     .span-lighter {
       color: #999;
-      font-size: 12px;
-      font-weight: 100px;
+      font-size: 14px;
+      font-weight: 200;
       margin: 0;
+      align-items: baseline;
+    }
+    small {
+      color: #999;
+      font-size: 14px;
+      font-weight: 200;
+      margin-bottom: 10px;
       align-items: baseline;
     }
   }

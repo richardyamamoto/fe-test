@@ -127,6 +127,10 @@ function Cart({ cart, total, dispatch, history }) {
             ))}
           </tbody>
         </ProductTable>
+        <Total>
+          <span>Total</span>
+          <strong>{total}</strong>
+        </Total>
       </Container>
       <footer>
         <ClientForm onSubmit={handleSubmit}>
@@ -165,12 +169,10 @@ function Cart({ cart, total, dispatch, history }) {
               ))}
             </TextField>
           </div>
-          <Button type="submit">Finalizar pedido</Button>
+          <div id="btn-submit">
+            <Button type="submit">Finalizar pedido</Button>
+          </div>
         </ClientForm>
-        <Total>
-          <span>Total</span>
-          <strong>{total}</strong>
-        </Total>
       </footer>
     </>
   );

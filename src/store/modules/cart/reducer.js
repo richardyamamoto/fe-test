@@ -35,6 +35,10 @@ export default function cart(state = [], action) {
       });
     }
 
+    case 'RESET':
+      state = [];
+      return state;
+
     default:
       return state;
   }

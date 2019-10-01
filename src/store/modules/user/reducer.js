@@ -12,6 +12,11 @@ export default function user(state = [], action) {
           },
         });
       });
+
+    case 'RESET':
+      state = [];
+      return state;
+
     default:
       return state;
   }
